@@ -11,6 +11,7 @@ using namespace std;
 
 void utworz_pliki(const string nazwa, const int licznik, const char znak);
 void porownanie_plikow(const string _plik1, const string _plik2);
+uint8_t hammingDistance(uint8_t n1, uint8_t n2);
 
 int main(int argc, char* argv[])
 {
@@ -64,6 +65,7 @@ void porownanie_plikow(const string _plik1, const string _plik2) {
 			cout << " -- ";
 			cout << (char)p2 << endl;
 			ilosc_bitow = ilosc_bitow + 8;
+			ber = hammingDistance(p1, p2) + ber;
 
 		}
 		koniec = clock();
@@ -73,6 +75,18 @@ void porownanie_plikow(const string _plik1, const string _plik2) {
 
 	}
 
+}
+
+uint8_t hammingDistance(uint8_t n1, uint8_t n2)
+{
+	uint8_t x = n1 ^ n2; // XOR
+	uint8_t setBits = 0;
+	while (x > 0)
+	{
+		setBits += x & 1;
+		x >>= 1;
+	}
+	return setBits;
 }
 
 void utworz_pliki(const string nazwa, const int licznik, const char znak)
